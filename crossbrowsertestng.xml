@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="All Test Suite" thread-count="2" parallel="tests">
+    <test name="Chrometest">
+        <parameter name="browsers" value="chrome"></parameter>
+        <parameter name="os" value="linux"></parameter>
+        <classes>
+            <class name="testCases.TC001_AccountRegistrationTest"/>
+            <class name="testCases.TC002_LoginTest"/>
+        </classes>
+    </test>
+
+    <test name="Firefoxtest">
+        <parameter name="browsers" value="firefox"></parameter>
+        <parameter name="os" value="windows"></parameter>
+        <classes>
+            <class name="testCases.TC001_AccountRegistrationTest"/>
+            <class name="testCases.TC002_LoginTest"/>
+        </classes>
+    </test>
+
+    <test name="Edgetest">
+        <parameter name="browsers" value="edge"></parameter>
+        <parameter name="os" value="windows"></parameter>
+        <classes>
+            <class name="testCases.TC001_AccountRegistrationTest"/>
+            <class name="testCases.TC002_LoginTest"/>
+        </classes>
+    </test>
+</suite>
