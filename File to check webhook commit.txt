@@ -1,0 +1,68 @@
+✅ How GitHub Webhook Works with Jenkins
+When someone pushes code to GitHub:
+
+GitHub sends an HTTP POST payload (webhook) to Jenkins.
+
+Jenkins receives this request at a specific endpoint.
+
+Jenkins triggers a job/build automatically.
+Step-by-Step Setup
+✅ Prerequisites
+A Jenkins instance with GitHub plugin installed.
+
+Jenkins must be publicly accessible or behind a proxy/tunnel (like ngrok, cloudflare tunnel, or reverse proxy) to receive webhook requests.
+
+Jenkins job is already configured with Git SCM pointing to your GitHub repo.
+🔁 1. Configure Jenkins Job
+➤ For Freestyle or Pipeline Jobs:
+Go to your job → Configure
+
+Under Build Triggers, check GitHub hook trigger for GITScm polling
+🌐 2. Expose Jenkins to GitHub
+GitHub needs to access Jenkins server. Use one of the following:
+
+If hosted on a public server → use the public URL.
+
+If local Jenkins → use ngrok:
+
+ngrok http 8080
+Note the forwarded HTTPS URL, like:
+
+https://abc123.ngrok.io
+🪝 3. Set Up GitHub Webhook
+Go to your GitHub repo:
+
+Settings → Webhooks → Add webhook
+
+Payload URL:
+http://<jenkins-url>/github-webhook/
+Example:
+https://abc123.ngrok.io/github-webhook/
+Content type: application/json
+
+Secret: (Optional) A shared secret Jenkins will use to verify the request.
+
+Events: Choose "Just the push event" or others (e.g., pull request).
+
+⚙️ 4. Install Required Plugins in Jenkins
+Make sure these plugins are installed:
+
+GitHub Plugin
+
+GitHub Integration Plugin
+
+GitHub Branch Source (for multibranch pipeline)
+
+Git Plugin
+
+🔍 5. Test the Webhook
+Push a commit to GitHub.
+
+Go to Jenkins → Your job → Check for triggered build.
+
+On GitHub → Webhooks → Click “Recent Deliveries” → You should see a green tick if webhook delivery was successful.
+
+🧠 Notes:
+GitHub hook trigger only reacts when a webhook is received.
+
+If your Jenkins uses a multibranch pipeline, webhooks automatically detect new branches/pull requests.
